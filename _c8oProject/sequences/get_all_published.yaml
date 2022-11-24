@@ -1,0 +1,165 @@
+comment: Get all published forms.
+↓Call_Transaction [steps.TransactionStep-1668780726721]: 
+  sourceTransaction: nocode_utils.c8oforms_fs.get_view
+  ↓_use_ddoc [variables.StepVariable-1668780726723]: 
+    description: Design document name
+    value: gv_nocode_utils
+  ↓_use_view [variables.StepVariable-1668780726725]: 
+    description: View function name
+    value: published_forms
+↓forms [steps.XMLComplexStep-1668781275936]: 
+  nodeName: forms
+  ↓Attribute [steps.XMLAttributeStep-1668781467174]: 
+    nodeName: type
+    nodeText: object
+  ↓Iterator [steps.IteratorStep-1668780980349]: 
+    sourceDefinition: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: 1668780726721
+          - java.lang.String: 
+            - ↑value: ./document/couchdb_output/rows/item
+    ↓key [steps.XMLConcatStep-1668780879784]: 
+      nodeName: key
+      output: false
+      separator: 
+      sourcesDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: description
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: '["'
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: description
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1668780980349
+                    - java.lang.String: 
+                      - ↑value: ./id/text()
+                - java.lang.String: 
+                  - ↑value: ''
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: description
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: '","'
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: description
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                    - java.lang.String: 
+                      - ↑value: 1668780980349
+                    - java.lang.String: 
+                      - ↑value: ./value/info_doc/version/text()
+                - java.lang.String: 
+                  - ↑value: ''
+            - xmlizable: 
+              - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+              - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: description
+                - xmlizable: 
+                  - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+                  - com.twinsoft.convertigo.beans.common.XMLVector: 
+                - java.lang.String: 
+                  - ↑value: '"]'
+    ↓Call_Transaction1 [steps.TransactionStep-1668786961724]: 
+      sourceTransaction: nocode_utils.c8oforms_response_fs.date_responses_view
+      ↓_use_key [variables.StepVariable-1668786961726]: 
+        comment: |
+          '{
+              "fr": {
+                  "displayName": "_use_key",
+                  "comment": "<div>Tableau contenant l''id du formulaire de réponse et son numéro de version</div>"
+              },
+              "en": {
+                  "displayName": "_use_key",
+                  "comment": "<div>Array containing the id of the response form and the version number</div>"
+              }
+          }'
+        description: (string) – Return only documents that match the specified key. Optional
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1668780879784
+              - java.lang.String: 
+                - ↑value: ./text()
+    ↓published [steps.XMLComplexStep-1668781255550]: 
+      nodeName: published
+      ↓Attribute [steps.XMLAttributeStep-1668781490249]: 
+        nodeName: type
+        nodeText: array
+      ↓Copy [steps.XMLCopyStep-1668781336166]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1668780980349
+              - java.lang.String: 
+                - ↑value: ./value/info_doc/*
+      ↓jSimpleSource1 [steps.SimpleSourceStep-1669049039675]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1668781336166
+              - java.lang.String: 
+                - ↑value: ./last_publication_ts/text()
+        variableName: js_publication_ts
+      ↓jElement2 [steps.ElementStep-1669049164633]: 
+        expression: 'js_publication_ts != null ? (new Date(js_publication_ts*1)).toString() : "0"'
+        nodeName: last_publication_date
+      ↓responses [steps.XMLElementStep-1668782020062]: 
+        nodeName: responses
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1668786961724
+              - java.lang.String: 
+                - ↑value: ./document/couchdb_output/rows/@length
+      ↓jSimpleSource [steps.SimpleSourceStep-1669037183234]: 
+        sourceDefinition: 
+          - xmlizable: 
+            - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+            - com.twinsoft.convertigo.beans.common.XMLVector: 
+              - java.lang.String: 
+                - ↑value: 1668786961724
+              - java.lang.String: 
+                - ↑value: ./document/couchdb_output/rows/item[last()]/value/text()
+        variableName: js_response_ts
+      ↓jElement1 [steps.ElementStep-1669037306695]: 
+        expression: 'js_response_ts != null ? (new Date(js_response_ts*1)).toString() : "0"'
+        nodeName: last_response_date
+      ↓jElement [steps.ElementStep-1669037262955]: 
+        expression: 'js_response_ts != null ? (""+js_response_ts) : "0"'
+        nodeName: last_response_ts

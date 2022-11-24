@@ -1,0 +1,64 @@
+databaseName: c8oforms_fs
+↓get_view [transactions.couchdb.GetViewTransaction]: 
+  accessibility: Private
+  ↓_use_ddoc [variables.RequestableVariable-1668780707961]: 
+    description: Design document name
+  ↓_use_view [variables.RequestableVariable-1668780707963]: 
+    description: View function name
+  ↓_use_keys [variables.RequestableVariable-1668791280917]: 
+    description: (json-array) – Return only documents where the key matches one of the keys specified in the array. Optional
+↓GetServerInfo [transactions.couchdb.GetServerInfoTransaction]: 
+  ↑default: true
+↓PostBulkDocuments [transactions.couchdb.PostBulkDocumentsTransaction]: 
+  accessibility: Private
+  ↓data [variables.RequestableMultiValuedVariable-1669026009553]: 
+    description: Documents contents
+↓gv_nocode_utils [couchdb.DesignDocument]: 
+  docdata: 
+    →: |
+      '{
+        "_id": "_design\/gv_nocode_utils",
+        "filters": {},
+        "updates": {},
+        "views": {
+          "published_forms": {
+            "map": "function (doc) {\r\n
+          try {\r\n
+              if(doc.c8o_view_type_published_form === true && doc.deleted !== true){\r\n
+                  emit(doc._id, {\r\n
+                                  \"info_doc\": \r\n
+                                  {\r\n
+                                      \"id\": doc._id,\r\n
+                                      \"name\": doc.name, \r\n
+                                      \"creator\": doc.creator,\r\n
+                                      \"version\": doc.version, \r\n
+                                      \"anonymous\": doc.sharedAnonymous != null ? doc.sharedAnonymous : \"false\",\r\n
+                                      \"last_publication_ts\": doc.lastMofification\/*,\r\n
+                                      \"last_publication_date\": doc.lastMofification != null ? new Date(doc.lastMofification*1) : 0 *\/\r\n
+                                  }\r\n
+                              }\r\n
+                      );    \r\n
+              }\r\n
+          } catch (err) {\r\n
+              log(err.message);\r\n
+          }\r\n
+      }"
+          },
+          "published_forms_to_delete": {
+            "map": "function (doc) {\r\n
+          try {\r\n
+              if(doc.c8o_view_type_published_form === true && doc.deleted !== true){\r\n
+                  emit(doc._id, {\r\n
+                                  _id: doc._id,\r\n
+                                  _rev: doc._rev,\r\n
+                                  _deleted: true\r\n
+                              }\r\n
+                      );    \r\n
+              }\r\n
+          } catch (err) {\r\n
+              log(err.message);\r\n
+          }\r\n
+      }"
+          }
+        }
+      }'

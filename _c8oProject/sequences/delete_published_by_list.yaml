@@ -1,0 +1,87 @@
+comment: Delete list of published forms.
+↓compute_keys [steps.SimpleStep-1668791720195]: 
+  expression: |
+    'log.warn(JSON.stringify(keys));
+    
+    var _use_keys = keys != null ? JSON.stringify(keys) : allow_empty == "true" ? "" : JSON.stringify(["zzz"]);
+    log.warn("_use_keys:"+_use_keys);
+    '
+↓Call_Transaction [steps.TransactionStep-1668791348944]: 
+  output: true
+  sourceTransaction: nocode_utils.c8oforms_fs.get_view
+  ↓_use_ddoc [variables.StepVariable-1668791348946]: 
+    description: Design document name
+    value: gv_nocode_utils
+  ↓_use_view [variables.StepVariable-1668791348948]: 
+    description: View function name
+    value: published_forms_to_delete
+  ↓_use_keys [variables.StepVariable-1668791348950]: 
+    description: (json-array) – Return only documents where the key matches one of the keys specified in the array. Optional
+↓jIf [steps.IfStep-1669026171093]: 
+  condition: do_delete == "true"
+  ↓Call_Transaction [steps.TransactionStep-1669026199694]: 
+    output: true
+    sourceTransaction: nocode_utils.c8oforms_fs.PostBulkDocuments
+    ↓data [variables.StepMultiValuedVariable-1669026199696]: 
+      description: Documents contents
+      sourceDefinition: 
+        - xmlizable: 
+          - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+          - com.twinsoft.convertigo.beans.common.XMLVector: 
+            - java.lang.String: 
+              - ↑value: 1668791348944
+            - java.lang.String: 
+              - ↑value: ./document/couchdb_output/rows/item/value
+      subXPath: '*'
+↓keys [variables.RequestableMultiValuedVariable-1668791325388]: 
+  comment: Array of published forms id
+↓allow_empty [variables.RequestableVariable-1669025145085]: 
+  comment: Authorize or not empty list to remove all published forms
+  value: false
+↓do_delete [variables.RequestableVariable-1669025197230]: 
+  comment: Security variable to enable doc deletion
+  value: false
+↓Test_Case [core.TestCase]: 
+  ↓keys [variables.TestCaseMultiValuedVariable-1668791789077]: 
+    value: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: published_1668792092845
+          - java.lang.String: 
+            - ↑value: published_1668792060209
+          - java.lang.String: 
+            - ↑value: published_1661530034197
+↓Test_Case1 [core.TestCase]: 
+  ↓keys [variables.TestCaseMultiValuedVariable-1669024973876]: 
+    value: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: published_1668792092845
+          - java.lang.String: 
+            - ↑value: published_1668792060209
+↓Test_Case11 [core.TestCase]: 
+  ↓keys [variables.TestCaseMultiValuedVariable-1669026324761]: 
+    value: 
+      - xmlizable: 
+        - ↑classname: com.twinsoft.convertigo.beans.common.XMLVector
+        - com.twinsoft.convertigo.beans.common.XMLVector: 
+          - java.lang.String: 
+            - ↑value: published_1668792092845
+  ↓allow_empty [variables.TestCaseVariable-1669026330370]: 
+    value: false
+  ↓do_delete [variables.TestCaseVariable-1669026330372]: 
+    value: true
+↓Test_Case2 [core.TestCase]: 
+  ↓allow_empty [variables.TestCaseVariable-1669025491075]: 
+    value: true
+  ↓do_delete [variables.TestCaseVariable-1669025491077]: 
+    value: false
+↓Test_Case21 [core.TestCase]: 
+  ↓allow_empty [variables.TestCaseVariable-1669028800340]: 
+    value: false
+  ↓do_delete [variables.TestCaseVariable-1669028800343]: 
+    value: true

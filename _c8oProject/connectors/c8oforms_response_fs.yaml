@@ -1,0 +1,55 @@
+databaseName: c8oforms_response_fs
+↓date_responses_view [transactions.couchdb.GetViewTransaction]: 
+  accessibility: Private
+  comment: |
+    '{
+        "fr": {
+            "displayName": "count_responses_view",
+            "comment": "<div>Vue retournant les dates de réponses pour une version spécifique d''un formulaire</div>"
+        },
+        "en": {
+            "displayName": "count_responses_view",
+            "comment": "<div>Dates of form responses for a specific version</div>"
+        }
+    }'
+  p_ddoc: gv_nocode_utils
+  p_view: date_responses
+  ↓Test_Case [core.TestCase]: 
+    ↓_use_key [variables.TestCaseVariable-1668783954343]: 
+      description: (string) – Return only documents that match the specified key. Optional
+      value: '["published_1661530034197", "2"]'
+  ↓_use_key [variables.RequestableVariable-1668783954346]: 
+    comment: |
+      '{
+          "fr": {
+              "displayName": "_use_key",
+              "comment": "<div>Tableau contenant l''id du formulaire de réponse et son numéro de version</div>"
+          },
+          "en": {
+              "displayName": "_use_key",
+              "comment": "<div>Array containing the id of the response form and the version number</div>"
+          }
+      }'
+    description: (string) – Return only documents that match the specified key. Optional
+↓GetServerInfo [transactions.couchdb.GetServerInfoTransaction]: 
+  ↑default: true
+↓gv_nocode_utils [couchdb.DesignDocument]: 
+  docdata: 
+    →: |
+      '{
+        "_id": "_design\/gv_nocode_utils",
+        "filters": {},
+        "updates": {},
+        "views": {
+          "date_responses": {
+            "map": "function (doc) {\r\n
+          try {\r\n
+              if(doc.formId)\r\n
+                  emit([doc.formId, doc.version], doc.timestamp);\r\n
+          } catch (err) {\r\n
+              log(err.message);\r\n
+          }\r\n
+      }"
+          }
+        }
+      }'

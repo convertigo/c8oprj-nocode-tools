@@ -1,0 +1,10 @@
+↑convertigo: 7.9.0.m006
+↓nocode_utils [core.Project]: 
+  comment: Some tools for No Code Studio
+  ↓c8oforms_fs [connectors.FullSyncConnector]: 🗏 connectors/c8oforms_fs.yaml
+  ↓c8oforms_response_fs [connectors.FullSyncConnector]: 🗏 connectors/c8oforms_response_fs.yaml
+  ↓void [connectors.SqlConnector]: 🗏 connectors/void.yaml
+  ↓delete_published_by_list [sequences.GenericSequence]: 🗏 sequences/delete_published_by_list.yaml
+  ↓get_all_published [sequences.GenericSequence]: 🗏 sequences/get_all_published.yaml
+  ↓CouchDb_schema [references.ImportXsdSchemaReference]: 
+    urlpath: http://localhost:18080/convertigo/xsd/couchdb/CouchDb.xsd
