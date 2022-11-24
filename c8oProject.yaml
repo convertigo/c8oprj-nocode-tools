@@ -1,6 +1,7 @@
 ↑convertigo: 7.9.0.m006
 ↓nocode_utils [core.Project]: 
   comment: Some tools for No Code Studio
+  version: 1.0
   ↓c8oforms_fs [connectors.FullSyncConnector]: 🗏 connectors/c8oforms_fs.yaml
   ↓c8oforms_response_fs [connectors.FullSyncConnector]: 🗏 connectors/c8oforms_response_fs.yaml
   ↓void [connectors.SqlConnector]: 🗏 connectors/void.yaml
